@@ -7,50 +7,88 @@
 // =========================================
 // INTERATIVIDADE POPUP
 //==========================================
-let popup = document.getElementById("popup");
 
-function openPopup(){
-popup.classList.add ("open-popup");
-}
-function closePopup(){
-    popup.classList.remove ("open-popup");
+
+var popup = document.getElementById("popup");
+var botaoSeInscreva = document.querySelector("#botaoSeInscreva")
+var msg = document.getElementById("message");
+var btnReset = document.getElementById("resetPoup");
+
+msg.style.display = "none";
+
+function verificaCadastroEnviado() {
+    if (localStorage.getItem('exibicaoPopup') == 'true') {
+        botaoSeInscreva.innerHTML = "Inscrito com sucesso!";
+        btnReset.style.display = "block";
+
+        return true;
     }
+    return false;
+}
+
+function openPopup() {
+    if (verificaCadastroEnviado()) {
+        return;
+    }
+    popup.classList.add("open-popup");
+}
+function closePopup() {
+    popup.classList.remove("open-popup");
+}
+
+function resetPopup() {
+    localStorage.setItem("exibicaoPopup", "false");
+    botaoSeInscreva.innerHTML = "Se inscreva!";
+    btnReset.style.display = "none";
+}
+
+verificaCadastroEnviado();
+
 //========================================
 // FUNÇÃO INSCRIÇÃO
 //========================================
-let nome = document.getElementById('campoNome');
-let email = document.getElementById('campoEmail');
-let btnSalvar = document.getElementById('botaoInscreva');
 
-function cadastrar(){
-    
-    if  (nome.value == "" || email.value == "") {
-        alert("Certifique-se que todos os campos foram devidamente preenchidos.");
+function cadastrar() {
+    event.preventDefault();
+
+    let nome = document.getElementById("campoNome");
+    let email = document.getElementById("campoEmail");
+
+    if (nome.value == "" || email.value == "") {
+        msg.style.display = "block";
+        msg.innerHTML = "Certifique-se que todos os campos foram devidamente preenchidos.";
+        setTimeout(() => {
+            msg.innerHTML = "";
+            msg.style.display = "none";
+        }, 5000);
+
     } else if (nome.value != "" || email.value != "") {
-        let listaUser = JSON.parse(localStorage.getItem('listaUser') || '[]')    
-        listaUser.push (
-            {
-                nomeCad: nome.value,
-                userCad: email.value,
-            }
-            )
-            
-            localStorage.setItem('listaUser', JSON.stringify(listaUser));
-            
-            // Mensagem de inscrito com sucesso
-            msg.setAttribute('style', 'background-color: #7efc00');
-            msg.innerHTML = "<strong> Inscrito com sucesso! </strong>"
+        localStorage.setItem("exibicaoPopup", "true");
 
+        enviarDadosCliente(nome, email)
 
-        // Delay de 1s após efetuar a inscrição
+        // Mensagem de inscrito com sucesso
+        msg.style.display = "block";
+        msg.innerHTML = "<strong> Inscrito com sucesso! </strong>";
+        botaoSeInscreva.innerHTML = "Inscrito com sucesso!";
+
+        // Delay de 5s após efetuar a inscrição
         setTimeout(() => {
             location.reload();
-          }, 1000);
-   
-    }
-     else {
+        }, 5000);
+    } else {
         alert("Erro na inscrição");
     }
-  if 
-
 }
+
+document.getElementById('formCadastro').addEventListener('submit', cadastrar);
+
+function enviarDadosCliente(nome, email) {
+    const dadosCliente = {
+        nome: nome.value,
+        email: email.value
+    }
+    localStorage.setItem("dadosCliente", JSON.stringify(dadosCliente));
+}
+
+

@@ -1,36 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Teste Nairuz POP UP LEAD</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Teste Nairuz POP UP LEAD</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-</head>
-<body>
-<div class="container">
-        <button type="submit" class="btn" onclick="openPopup()">Se inscreva!</button>
-        <div class="popup" id="popup">
-            <div class="subscribe">
-                <h1>Se inscreva para receber <span>novidades &amp; promoções</span>!</h1>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <button id="botaoSeInscreva" type="button" class="btn" onclick="openPopup()">Se inscreva!</button>
+
+            <button id="resetPoup" type="button" class="btn" onclick="resetPopup()" style="display: none;">Resetar Popup</button>
+
+            <div class="popup" id="popup">
+                <div class="subscribe">
+                    <h1>Se inscreva para receber <span>novidades &amp; promoções</span>!</h1>
+                </div>
+                <form id="formCadastro">
+                    <div class="campoNome">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="campoNome" placeholder="Digite seu nome" maxlength="30" required />
+                    </div>
+                    <div class="campoEmail">
+                        <label for="email">Email:</label>
+                        <input type="email" id="campoEmail" placeholder="Digite seu email" required />
+                    </div>
+                    <div class="botaoInscreva">
+                        <input type="submit" value="Inscrever-se" />
+                    </div>
+
+                    <div class="message-box">
+                        <p id="message"></p>
+                    </div>
+                </form>
+                <button type="closeButton" onclick="closePopup()">X</button>
             </div>
-            <form>
-            <div class="campoNome">
-                <label for="nome">Nome:</label>
-                <input type="text" id="campoNome" placeholder="Digite seu nome" maxlength="30" required>
-            </div>
-            <div class="campoEmail">
-                <label for="email">Email:</label>
-                <input type="email" id="campoEmail" placeholder="Digite seu email" required>
-            </div>
-              <div class="botaoInscreva">
-            <input type="submit" value="Subscribe">
-              </div>
-        </form>
-            <button type="closeButton" onclick="closePopup()">X</button>
         </div>
-    </div>
+
+        <script src="script.js"></script>
     </body>
-    </html>
+</html>
